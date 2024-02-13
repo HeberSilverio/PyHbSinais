@@ -10,32 +10,32 @@ O robô de sinais **PyHbSinais** realiza o monitoramento dos pares de criptomoed
 
 # 📋 Índice
  
-* Bot 01 - <a href="https://python-binance.readthedocs.io/en/latest/overview.html">Api da binance</a> 
+### Links úteis 
+*  <a href="https://www.youtube.com/watch?v=-FHCUqYHCzY&list=PLYotAkYupgP0obtvJs3iXrNgACv9Iw1g3">Video tutorial</a> 
+
+*  <a href="https://python-binance.readthedocs.io/en/latest/overview.html">Api da binance</a> 
+*  <a href="https://github.com/TA-Lib/ta-lib-python/tree/master">Talib Python</a> 
+*  <a href="https://github.com/TA-Lib/ta-lib-python/blob/master/docs/doc_index.md">Relação dos indicadores na API TA-Lib</a> 
+
+
+
+
+### **MANUAL DE UTILIZAÇÃO**
 
 Antes de começar a configurar e a utilizar, é necessário instalar a biblioteca da Binance. Digite no terminal: `pip install python-binance`
 
-No arquivo **"secrets.py"**
-</br> 
+No arquivo **"config.py"** deverá ser inserida a **API_KEY** da sua conta Binance juntamente de sua senha **API_ SECRET**. Ambos podem ser obtidos nas configurações da sua conta Binance, adentrando na opção **API Management**.
 
 <div align="center">
-<img src = "img/secrets.PNG">
+<img src = "https://raw.githubusercontent.com/HeberSilverio/PyHbSinais/main/img/secrets.png">
 </div>
 
-</br> 
 
-deverá ser inserida a **API_KEY** da sua conta Binance juntamente de sua senha **API_ SECRET**. Ambos podem ser obtidos nas configurações da sua conta Binance, adentrando na opção **API Management**:
-
-<div align="center">
-<img src = "img/apimanagement.png">
-</div>
-
-</br> 
-
-Ainda no arquivo **"secrets.py"**, para inserir o **TOKEN** é necessário criar um bot no Telegram utilizando o canal **BotFather**:
+Ainda no arquivo **"config.py"**, para inserir o **TOKEN** é necessário criar um bot no Telegram utilizando o canal **BotFather**:
 
 
 <div align="center">
-<img src = "img/botfather.png" alt="Image" height="350" width="300">
+<img src = "https://raw.githubusercontent.com/HeberSilverio/PyHbSinais/main/img/botfather.png" alt="Image" height="350" width="300">
 </div>
 
 </br> 
@@ -48,7 +48,7 @@ Pode-se alterar a criptomoeda a ser analisada substituindo-a em **TRADE_SYMBOL**
 </br> 
 
 <div align="center">
-<img src = "img/criptotime.PNG">
+<img src = "https://raw.githubusercontent.com/HeberSilverio/PyHbSinais/main/img/criptotime.png">
 </div>
 
 </br> 
@@ -57,7 +57,7 @@ Os indicadores podem ser customizados e inseridos a seu critério acessando a bi
 </br> 
 
 <div align="center">
-<img src = "img/bollingerbands.PNG">
+<img src = "https://raw.githubusercontent.com/HeberSilverio/PyHbSinais/main/img/bollingerbands.png">
 </div>
 
 </br> 
@@ -66,7 +66,7 @@ Para customizar ou adicionar uma mensagem que será enviada no Telegram, é nece
 </br> 
 
 <div align="center">
-<img src = "img/msgtelegram.PNG">
+<img src = "https://raw.githubusercontent.com/HeberSilverio/PyHbSinais/main/img/msgtelegram.png">
 </div>
 
 </br> 
