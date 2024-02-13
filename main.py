@@ -87,7 +87,7 @@ def on_message(ws, message):
 if __name__ == "__main__":
    client = Client(config.API_KEY, config.API_SECRET)
    
-   telegramBot = tlg.BotTelegram("6940071503:AAG2GhViUz-oLmKAZgu7oMg_ItlljYEgFbU","-4114868431")
+   telegramBot = tlg.BotTelegram(config.TOKEN,config.CHAT_ID)
    
    telegramBot.send_msg("=== Inicio do bot PyHbSinais ===")
      

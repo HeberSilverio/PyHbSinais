@@ -38,11 +38,11 @@ Ainda no arquivo **"config.py"**, para inserir o **TOKEN** é necessário criar 
 <img src = "https://raw.githubusercontent.com/HeberSilverio/PyHbSinais/main/img/botfather.png" alt="Image" height="350" width="300">
 </div>
 
-</br> 
+  
+Para capturar o **CHAT_ID**, basta enviar uma mensagem através do telegram ou realizar qualquer alteração no grupo.
+Em seguida, utilize esta url https://api.telegram.org/botTOKEN/getUpdates e substitua o **TOKEN**. 
+O número do Chat_Id aparece na string: {"message_id":xxx,"from":{"id":**Número ID**.
 
-Para capturar o **CHAT_ID**, é necessário entrar no site [https://api.telegram.org/botTOKEN/getUpdates] e substituir o **TOKEN**. Em seguida, basta enviar uma mensagem através do telegram e atualizar o site. o número do chat aparece na string: {"message_id":xxx,"from":{"id":**Número ID**.
-
-</br> 
 
 Pode-se alterar a criptomoeda a ser analisada substituindo-a em **TRADE_SYMBOL**, bem como seu tempo gráfico.
 </br> 
@@ -53,7 +53,7 @@ Pode-se alterar a criptomoeda a ser analisada substituindo-a em **TRADE_SYMBOL**
 
 </br> 
 
-Os indicadores podem ser customizados e inseridos a seu critério acessando a biblioteca **Talib** no site [https://mrjbq7.github.io/ta-lib/funcs.html]. Estes indicadores podem ser configurados como na imagem abaixo:
+Os indicadores podem ser customizados e inseridos a seu critério acessando a biblioteca ![**Talib**](https://github.com/TA-Lib/ta-lib-python/blob/master/talib/_func.pxi) no site. Estes indicadores podem ser configurados como na imagem abaixo:
 </br> 
 
 <div align="center">
