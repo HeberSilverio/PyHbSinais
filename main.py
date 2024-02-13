@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 # Insere a criptomeda e seu intervalo de tempo gráfico
-TRADE_SYMBOL = 'GALAUSDT'
+TRADE_SYMBOL = 'ADAUSDT'
 TIME_INTERVAL = Client.KLINE_INTERVAL_1MINUTE
 # TIME_INTERVAL = Client.KLINE_INTERVAL_15MINUTE
 # TIME_INTERVAL = Client.KLINE_INTERVAL_1HOUR
@@ -16,11 +16,11 @@ TIME_INTERVAL = Client.KLINE_INTERVAL_1MINUTE
 closes = []
 
 def on_open(ws):
-   print('opened connection')
-
+   print('Conexão iniciada')
+   telegramBot.send_msg("Conexão iniciada")
 def on_close(ws):
-   print('closed connection')
-
+   print('Conexão Encerrada')
+   telegramBot.send_msg("Conexão Encerrada")
 def on_message(ws, message):
    global closes
 
@@ -46,44 +46,57 @@ def on_message(ws, message):
 
       
       data_e_hora_atuais = datetime.now()
-      data_e_hora_em_texto = data_e_hora_atuais.strftime('%d/%m/%Y - %H:%M')   
+      data_e_hora_em_texto = data_e_hora_atuais.strftime('%d/%m/%Y - %Hh:%Mm')   
       print("--------------------------------------")
-
+      telegramBot.send_msg("\n -------------------------------")
+      telegramBot.send_msg("\n 🧩  " + data_e_hora_em_texto + "\n Moeda: " + str(TRADE_SYMBOL) + "\n Valor: " + str(close) )
+      
       # Bandas de Bollinger
       if len(closes) > 21:
-         upper, middle, lower = talib.BBANDS(np_closes, 21, 2, 2)
-         last_BBupper = upper[-1]
-         last_BBlower = lower[-1]
-         last_BBmiddle = middle[-1]
-     
-      telegramBot.send_msg(data_e_hora_em_texto  + "\n Moeda: " + str(TRADE_SYMBOL) + "\n Fechamento: " + str(close) + "\n Superior:        " + str(last_BBupper) + "\n Media:            " + str( last_BBlower) + "\n Inferior:          " + str(last_BBmiddle))
-     
-
-   # Estocástico lento RSI
-      if len(closes) > 21:
-         fastk, fastd = talib.STOCHRSI(np_closes,timeperiod=21, fastk_period=21, fastd_period=3, fastd_matype=3) 
-         last_SRSIk = fastk[-1]
-         last_SRSId = fastd[-1]
+         upper, middle, lower = talib.BBANDS(np_closes, 21, 3, 3)
+         BBSuperior = upper[-1]
+         BBMedia = middle[-1]
+         BBInferior = lower[-1]
          
-      # Estocástico lento tradicional
-      if len(closes) > 7:
-         rsi = talib.RSI(np_closes, 8)
-         last_RSI = rsi[-1]   
-         telegramBot.send_msg("RSI: " + str(rsi) + "\n last_RSI" + str(last_RSI) + "\n lento_SRSIk" + str(last_SRSIk) + "\n lento_SRSId" + str(last_SRSId))
       
+      if ( (format(float(close),'.6f') < format(float(BBMedia),'.6f')) and (format(float(middle[-1]),'.6f') < format(float(middle[-3]),'.6f'))):
+         telegramBot.send_msg("🔴 " + "Tendência de baixa - Média central inclinada para baixo")
+         print("🔴 " + "Tendência de baixa - Média central inclinada para baixo")
+         print("Close: ",close)
+         print("Media-1 ",middle[-1])
+         print("Media-3 ",middle[-3])
+         
+      elif ((format(float(close),'.8f') > format(float(BBMedia),'.8f') ) and (format(float(middle[-1]),'.8f') > format(float(middle[-3]),'.8f') )):
+         telegramBot.send_msg("🟢 " + "Tendência de alta - Média central inclinada para cima")
+         print("🟢 " + "Tendência de Alta - Média central inclinada para cima")
+         print("Close: ",close)
+         print("Media-1 ",middle[-1])
+         print("Media-3 ",middle[-3])
+         
+      else:
+         telegramBot.send_msg("🟡  " + "LATERALIDADE")
+         print("🟡 " + "LATERALIDADE")
+         print("Close: ",close)
+         print("Media-1 ",middle[-1])
+         print("Media-3 ",middle[-3])
             
-      
-      if True:
-         print("Date time       :\t",data_e_hora_em_texto)
-         print("TRADE SYMBOL    :\t",TRADE_SYMBOL)
+         
+      ### Que interessa
+      if format(float(close),'.8f') < format(float(BBInferior),'.8f'):
+         telegramBot.send_msg("🟢 " + "🟢 " +  "🟢 " + "🟢 " + "🟢 " +  "🟢 " +"\n Fechou abaixo da Bollinger \n !!!COMPRA" "\n Inferior: " + str(BBInferior) + "\n Close: " + str(format(float(close),'.8f')))
+         
          print("Fechamento      :\t",format(float(close),'.6f'))
-         print("Superior        :\t",format(float(last_BBupper),'.8f'))
-         print("Média           :\t",format(float(last_BBlower),'.8f'))
-         print("inferior        :\t",format(float(last_BBmiddle),'.8f'))
-                                    
-         telegramBot.send_msg("\n --------------------------------------")
-   
-
+         print("inferior        :\t",format(float(BBInferior),'.8f'))
+      
+      elif format(float(close),'.8f') > format(float(BBSuperior),'.8f'):                             
+         telegramBot.send_msg("🔴 " + "🔴 " + "🔴 " + "🔴 " + "🔴 " + "🔴 " + "🔴 " + "🔴 " + "🔴 " + data_e_hora_em_texto  + "\n Fechou acima da Bollinger \n !!!VENDA " + str(TRADE_SYMBOL) + "\n Fechamento: " + str(close) + "\n Superior:        " + str(BBSuperior) + "\n Fechamento > Superior !!!ÓTIMA VENDA")
+         
+         print("Fechamento      :\t",format(float(close),'.6f'))
+         print("BBSuperior      :\t",format(float(BBSuperior),'.8f'))
+      
+           
+            
+         
 if __name__ == "__main__":
    client = Client(config.API_KEY, config.API_SECRET)
    
