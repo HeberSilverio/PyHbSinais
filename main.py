@@ -8,13 +8,13 @@ from datetime import datetime
 
 # Insere a criptomeda e seu intervalo de tempo gráfico
 # TRADE_SYMBOL = 'ADAUSDT'
-TRADE_SYMBOL = 'MATICUSDT'
+# TRADE_SYMBOL = 'MATICUSDT'
 # TRADE_SYMBOL = 'MANAUSDT'
 # TRADE_SYMBOL = 'AXSUSDT'
 # TRADE_SYMBOL = 'SEIUSDT'
 # TRADE_SYMBOL = 'ETHUSDT'
 # TRADE_SYMBOL = 'BTCUSDT'
-# TRADE_SYMBOL = 'CHZUSDT'
+TRADE_SYMBOL = 'CHZUSDT'
 # TRADE_SYMBOL = 'LINKUSDT'
 TIME_INTERVAL = Client.KLINE_INTERVAL_1MINUTE
 # TIME_INTERVAL = Client.KLINE_INTERVAL_15MINUTE
@@ -75,18 +75,18 @@ def on_message(ws, message):
         telegramBot.send_msg("=== *VENDER {}* ===".format(TRADE_SYMBOL)
                +"\n♨️Máxima *ACIMA* da Bollinger ♨️"
                +"\nBollinger Superior......."+str(format(float(BBSuperior),'.5f'))
-               +"\n*Máxima*............"+str(format(float(close),'.5f'))) 
+               +"\n*Máxima*....................."+str(format(float(close),'.5f'))) 
          
          # Se mínima menor que banda inferior
-      if (format(float(candle['h']),'.6f') < format(float(BBInferior),'.8f')):
+      if (format(float(candle['l']),'.6f') < format(float(BBInferior),'.8f')):
          telegramBot.send_msg("=== *COMPRAR {}* ===".format(TRADE_SYMBOL)
                +"\n🛤️ *Mínima *ABAIXO* da banda inferior* 🛤️"
                +"\nFechou ABAIXO da Bollinger"                
                +"\nBollinger Inferior.............."+str(format(float(BBInferior),'.6f'))
-               +"\nFechamento..........."+str(format(float(close),'.6f')))
+               +"\nFechamento........................."+str(format(float(close),'.6f')))
          
          # Se fechamento entre a media central
-      if ((format(float(candle['h']),'.6f') > format(float(BBMedia),'.6f')) and (format(float(candle['h']),'.6f') < format(float(BBMedia),'.8f'))):
+      if ((format(float(candle['h']),'.6f') > format(float(BBMedia),'.6f')) and (format(float(candle['l']),'.6f') < format(float(BBMedia),'.8f'))):
          telegramBot.send_msg("🟡 *+++ LATERALIDADE +++ 🟡{}*".format(TRADE_SYMBOL))
          print("Fechamento próximo a media central")
                      
@@ -94,7 +94,7 @@ def on_message(ws, message):
       ### Que interessa
       if format(float(close),'.8f') < format(float(BBInferior),'.8f'):
          telegramBot.send_msg("=== *COMPRAR {}* ===".format(TRADE_SYMBOL)
-               +"\n 🟢  🟢  🟢  🟢  🟢  🟢  🟢  🟢" + data_e_hora_em_texto
+               +"\n 🟢  🟢  🟢  🟢  🟢  🟢  🟢" + data_e_hora_em_texto
                +"\nTempo Gráfico: " +str(TIME_INTERVAL)
                +"\nFechou ABAIXO da Bollinger"                
                +"\nBBInferior.............."+str(format(float(BBInferior),'.6f'))
@@ -105,7 +105,7 @@ def on_message(ws, message):
       
       elif format(float(close),'.8f') > format(float(BBSuperior),'.8f'):                             
          telegramBot.send_msg("=== *VENDER {}* ===".format(TRADE_SYMBOL)
-               +"\n 🔴  🔴  🔴  🔴  🔴  🔴  🔴  🔴"
+               +"\n 🔴  🔴  🔴  🔴  🔴  🔴  🔴"
                + data_e_hora_em_texto
                +"\nTempo Gráfico: " +str(TIME_INTERVAL)
                +"\nFechou ACIMA da Bollinger"
